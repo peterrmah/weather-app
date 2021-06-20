@@ -1,4 +1,4 @@
-schema: ${SERVER_HOST}
+schema: ${REACT_APP_SERVER_HOST}
 documents: "src/graphql/**/*.graphql"
 overwrite: true
 generates:

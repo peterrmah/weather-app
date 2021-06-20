@@ -1,21 +1,22 @@
 import "./App.css";
 
-import { useGetCityByNameQuery } from "../../graphql/generated/graphql";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
-const App = () => {
-  const { data, loading, error } = useGetCityByNameQuery({
-    variables: {
-      name: "Gothenburg", // value for 'name'
-    },
-  });
-  let content;
-  if (loading) {
-    content = <div>Loading...</div>;
-  } else if (data) {
-    content = <div>{data?.getCityByName?.id}</div>;
-  }
+import WeatherCard from "../../components/WeatherCard";
 
-  return <div className="App">{content}</div>;
+interface AppProps {}
+
+const App: FunctionComponent<AppProps> = ({}) => {
+  return (
+    <div className="App">
+      <header>
+        <h1>This is the page header</h1>
+      </header>
+      <main>
+        <WeatherCard />
+      </main>
+    </div>
+  );
 };
 
 export default App;

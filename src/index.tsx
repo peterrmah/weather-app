@@ -3,16 +3,20 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloProvider } from "@apollo/client";
+import { Provider } from "react-redux";
 
 import apolloClient from "./apolloClient";
 import App from "./containers/app/App";
 import reportWebVitals from "./reportWebVitals";
+import store from "./store";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
+    <Provider store={store}>
+      <ApolloProvider client={apolloClient}>
+        <App />
+      </ApolloProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root"),
 );
