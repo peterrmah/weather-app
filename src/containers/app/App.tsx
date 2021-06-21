@@ -1,6 +1,6 @@
 import "./App.css";
 
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent } from "react";
 
 import WeatherCard from "../../components/WeatherCard";
 

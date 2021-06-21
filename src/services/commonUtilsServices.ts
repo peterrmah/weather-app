@@ -9,6 +9,6 @@ const ABSOLUTE_TEMPERATURE = 273.15;
  * @param {number} standardTemperature - temperature to convert from Standard to Metric units.
  * @returns {number} the temperature in degrees Celsius.
  */
-export const convertKelvinToMetric = (standardTemperature: number): number => {
-  return Math.floor((standardTemperature - ABSOLUTE_TEMPERATURE) * 100) / 100;
+export const convertKelvinToCelsius = (standardTemperature: number): number => {
+  return Number((standardTemperature - ABSOLUTE_TEMPERATURE).toFixed(1));
 };

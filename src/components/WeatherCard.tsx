@@ -1,44 +1,65 @@
 import React, { FunctionComponent, useState, useEffect } from "react";
 import { connect } from "react-redux";
 
-import { AppState, WeatherState } from "../types/StateTypes";
-import { WEATHER_ACTIONS } from "../store/weatherActions";
-import { useGetCityByNameQuery } from "../graphql/generated/graphql";
-import { CommonUtilsService } from "../services";
+import { AppState } from "../store/types";
+import { LocationState, LOCATION_ACTION_TYPES } from "../store/reducers/location/actionTypes";
+import { WeatherState, WEATHER_ACTION_TYPES } from "../store/reducers/weather/actionTypes";
+import { useGetCityByNameLazyQuery } from "../graphql/generated/graphql";
+import { CommonUtilsServices, LocationServices } from "../services";
 
 // const REFRESH_INTERVAL = Number(process.env.REACT_APP_REFRESH_INTERVAL) || 80000;
 
-interface WeatherCardProps extends WeatherState {
+interface WeatherCardProps extends LocationState, WeatherState {
   onUpdateCity: (newCity: string) => void;
+  onUpdateWeather: (newTemperature: number) => void;
 }
 
 const WeatherCard: FunctionComponent<WeatherCardProps> = (props: WeatherCardProps) => {
-  const [temperature, setTemperature] = useState<number | null>(null);
+  const [isLocateMeToggled, setIsLocateMeToggled] = useState(true);
 
-  console.log("temperature", temperature);
-
-  const { data, loading, error } = useGetCityByNameQuery({
+  const [getCityByNameQueryLazy, { data, loading, error }] = useGetCityByNameLazyQuery({
     variables: {
-      name: props.city, // value for 'name',
+      name: props.city,
     },
     // pollInterval: REFRESH_INTERVAL,
   });
+
+  useEffect(() => {
+    getCityByNameQueryLazy();
+  }, [getCityByNameQueryLazy]);
+
   console.log("================================> START");
   console.log("props from weatherCard", props);
   console.log("data", data);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     const standardTemperature = data?.getCityByName?.weather?.temperature?.actual;
     if (standardTemperature) {
-      const temperature = CommonUtilsService.convertKelvinToMetric(standardTemperature);
-      setTemperature(temperature);
+      console.log("updatedWeather", data?.getCityByName);
+      const temperature = CommonUtilsServices.convertKelvinToCelsius(standardTemperature);
+      props.onUpdateWeather(temperature);
     }
-  }, [props.city, data]);
+  }, [props, data]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error!!</div>;
+  useEffect(() => {
+    if (isLocateMeToggled) {
+      const getCityName = async () => {
+        const city = await LocationServices.fetchCityName();
+        props.onUpdateCity(city);
+        setIsLocateMeToggled(!isLocateMeToggled);
+      };
+      getCityName();
+    }
+  }, [isLocateMeToggled, props]);
+
+  if (loading) {
+    console.log("loading");
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    console.log("error");
+    return <div>Error!!</div>;
+  }
 
   console.log("<================================ END");
   console.log("props from weatherCard", props);
@@ -47,13 +68,15 @@ const WeatherCard: FunctionComponent<WeatherCardProps> = (props: WeatherCardProp
   return (
     <div>
       <h1>This is the weatherCard</h1>
-      <p>city: {props?.city}</p>
-      <p>temperature: {temperature}</p>
+      <p>city: {props.city}</p>
+      <p>temperature: {props.temperature}</p>
       <button
         onClick={() => props.onUpdateCity(props.city === "Toronto" ? "Vancouver" : "Toronto")}
       >
         Toggle city
       </button>
+      <button onClick={() => setIsLocateMeToggled(!isLocateMeToggled)}>Get location</button>
+      <button onClick={() => getCityByNameQueryLazy()}>Refresh</button>
     </div>
   );
 };
@@ -61,15 +84,18 @@ const WeatherCard: FunctionComponent<WeatherCardProps> = (props: WeatherCardProp
 const mapStateToProps = (state: AppState) => {
   console.log("props from mapStateToProps", state);
   return {
-    city: state.wtr.city,
-    location: state.wtr.location,
+    city: state.locationReducer.city,
+    temperature: state.weatherReducer.temperature,
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   console.log("props from mapDispatchToProps", dispatch);
   return {
-    onUpdateCity: (newCity: string) => dispatch({ type: WEATHER_ACTIONS.UPDATE_CITY, newCity }),
+    onUpdateCity: (newCity: string) =>
+      dispatch({ type: LOCATION_ACTION_TYPES.UPDATE_CITY, newCity }),
+    onUpdateWeather: (actualTemperature: number) =>
+      dispatch({ type: WEATHER_ACTION_TYPES.UPDATE_WEATHER, actualTemperature }),
   };
 };
 

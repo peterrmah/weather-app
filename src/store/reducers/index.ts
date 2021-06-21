@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 
+import locationReducer from "./location";
 import weatherReducer from "./weather";
 
 const reducer = combineReducers({
-  wtr: weatherReducer,
+  locationReducer,
+  weatherReducer,
 });
 
 export default reducer;
