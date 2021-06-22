@@ -7,7 +7,7 @@ import { LocationState, LOCATION_ACTION_TYPES } from "../../store/reducers/locat
 import { WeatherState, WEATHER_ACTION_TYPES } from "../../store/reducers/weather/actionTypes";
 import { useGetCityByNameQuery } from "../../graphql/generated/graphql";
 import { CommonUtilsServices, LocationServices } from "../../services";
-import Button from "../../components/Button";
+import Button from "../../components/button/Button";
 import DropPin from "../../assets/droppin.png";
 import Refresh from "../../assets/refresh.png";
 import Surprise from "../../assets/surprise.png";
@@ -127,9 +127,8 @@ const useStyles = createUseStyles({
     display: "flex",
     flexDirection: "column",
     width: "70%",
-    minWidth: "65%",
-    height: 400,
-    minHeight: 300,
+    minWidth: "70%",
+    height: "auto",
     margin: "35px 0 auto 0",
     padding: "15px 30px",
     borderRadius: 10,
@@ -165,6 +164,35 @@ const useStyles = createUseStyles({
   weatherDataContainer: {
     gridArea: "1 / 3 / 3 / 4",
     padding: "10px 10px 15px 10px",
+  },
+  "@media screen and (max-width: 780px)": {
+    mainContent: {
+      flex: 1,
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gridTemplateRows: "1fr 1fr 1fr 1fr",
+      gap: "0px 0px",
+    },
+    weatherDataContainer: {
+      gridArea: "1 / 1 / 3 / 3",
+      padding: "10px 10px 15px 10px",
+    },
+    surpriseMeButton: {
+      gridArea: "4 / 1 / 5 / 3",
+      padding: "10px 10px 15px 10px",
+    },
+    refreshButton: {
+      gridArea: "3 / 1 / 4 / 2",
+      padding: "10px 10px 15px 10px",
+    },
+    locateMeButton: {
+      gridArea: "3 / 2 / 4 / 3",
+      padding: "15px 10px 15px 10px",
+    },
+    weatherContainer: {
+      width: "90%",
+      minWidth: "90%",
+    },
   },
 });
 
