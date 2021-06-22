@@ -5,6 +5,10 @@
 - To gain familiarity with the graphql-weather-api which is a simple graphql wrapper around the Open Weather Map API.
 - To practice setting up and working with a production-ready React-Apollo project.
 
+## Final Product
+
+![image](https://user-images.githubusercontent.com/57974039/122961587-c23c5180-d341-11eb-85f4-f8e3e1564e99.png)
+
 ## Features
 
 The web app currently supports three features:
