@@ -29,7 +29,7 @@ The web app currently supports three features:
 
 Note: Alternatively, the creator of the repo has deployed a public instance of the server. If using the publicly deployed instance, make sure to update `REACT_APP_SERVER_HOST` in `.env` appropriately to ensure this client app points to a valid server running the graphql-weather-api server.
 
-### Option 1: Run Weather App Locally
+### Run Weather App Locally
 
 - **Step 1:** Navigate to repo directory
 
@@ -56,21 +56,10 @@ Note: Alternatively, the creator of the repo has deployed a public instance of t
   npm start
   ```
 
-### Option 2: Run Weather App in container using Docker
-
-TODO
-
-- **Step 1:** Navigate to repo directory
+- **Step 5:** Stop the app
 
   ```bash
-  cd weather-app
-  ```
-
-- **Step 2:** Run docker compose stack
-
-  ```bash
-  # Note: make sure Docker daemon is running first
-  docker compose up
+  ctrl + c
   ```
 
 ## Resources

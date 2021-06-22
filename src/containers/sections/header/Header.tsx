@@ -17,16 +17,22 @@ const Header: FunctionComponent<HeaderProps> = ({ headerText }) => {
 
 const useStyles = createUseStyles({
   header: {
-    height: 90,
+    height: 125,
     width: "100%",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    flex: "none",
   },
   headerText: {
     fontFamily: "Permanent Marker, cursive",
     fontSize: "3rem",
     color: "#202020",
+  },
+  "@media screen and (max-width: 780px)": {
+    header: {
+      height: 210,
+    },
   },
 });
 

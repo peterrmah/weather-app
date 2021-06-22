@@ -17,6 +17,7 @@ const useStyles = createUseStyles({
     flex: 1,
     display: "flex",
     justifyContent: "center",
+    paddingBotton: 30,
   },
 });
 
