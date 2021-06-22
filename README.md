@@ -2,7 +2,7 @@
 
 ## Objectives
 
-- To gain familiarity with the graphql-weather-api which is a simple graphql wrapper around the Open Weather Map API.
+- To gain familiarity with the [graphql-weather-api](https://github.com/konstantinmuenster/graphql-weather-api) which is a simple graphql wrapper around the Open Weather Map API.
 - To practice setting up and working with a production-ready React-Apollo project.
 
 ## Final Product
@@ -69,3 +69,4 @@ Note: Alternatively, the creator of the repo has deployed a public instance of t
 ## Resources
 
 - [geoPlugin:](http://www.geoplugin.net/json.gp) a free API that returns a client's Geolocation in a single HTTP request.
+- [graphql-weather-api](https://github.com/konstantinmuenster/graphql-weather-api) a simplified graphql wrapper around the [Open Weather API](https://openweathermap.org/api).
