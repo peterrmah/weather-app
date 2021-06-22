@@ -6,6 +6,7 @@ import { LocationState, LOCATION_ACTION_TYPES } from "../store/reducers/location
 import { WeatherState, WEATHER_ACTION_TYPES } from "../store/reducers/weather/actionTypes";
 import { useGetCityByNameLazyQuery } from "../graphql/generated/graphql";
 import { CommonUtilsServices, LocationServices } from "../services";
+import { createUseStyles } from "react-jss";
 
 // const REFRESH_INTERVAL = Number(process.env.REACT_APP_REFRESH_INTERVAL) || 80000;
 
@@ -15,6 +16,7 @@ interface WeatherCardProps extends LocationState, WeatherState {
 }
 
 const WeatherCard: FunctionComponent<WeatherCardProps> = (props: WeatherCardProps) => {
+  const classes = useStyles();
   const [isLocateMeToggled, setIsLocateMeToggled] = useState(true);
 
   const [getCityByNameQueryLazy, { data, loading, error }] = useGetCityByNameLazyQuery({
@@ -66,7 +68,7 @@ const WeatherCard: FunctionComponent<WeatherCardProps> = (props: WeatherCardProp
   console.log("data", data);
 
   return (
-    <div>
+    <div className={classes.weatherContainer}>
       <h1>This is the weatherCard</h1>
       <p>city: {props.city}</p>
       <p>temperature: {props.temperature}</p>
@@ -98,5 +100,21 @@ const mapDispatchToProps = (dispatch: any) => {
       dispatch({ type: WEATHER_ACTION_TYPES.UPDATE_WEATHER, actualTemperature }),
   };
 };
+
+const useStyles = createUseStyles({
+  weatherContainer: {
+    backgroundColor: "#fffefc",
+    display: "flex",
+    flexDirection: "column",
+    width: "70%",
+    minWidth: "65%",
+    height: 400,
+    minHeight: 300,
+    margin: "50px 0 auto 0",
+    padding: "15px 30px",
+    borderRadius: 10,
+    boxShadow: "0 4px 8px 0 rgb(0 0 0 / 5%), 0 6px 20px 0 rgb(0 0 0 / 5%)",
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(WeatherCard);
