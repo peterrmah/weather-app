@@ -1,19 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { createUseStyles } from "react-jss";
 
-interface HeaderProps {}
+interface HeaderProps {
+  headerText: string;
+}
 
-const Header: FunctionComponent<HeaderProps> = ({}) => {
+const Header: FunctionComponent<HeaderProps> = ({ headerText }) => {
   const classes = useStyles();
 
   return (
     <header className={classes.header}>
-      <h1>This is the page header</h1>
+      <h1 className={classes.headerText}>{headerText}</h1>
     </header>
   );
 };
-
-export default Header;
 
 const useStyles = createUseStyles({
   header: {
@@ -23,4 +23,11 @@ const useStyles = createUseStyles({
     alignItems: "center",
     justifyContent: "center",
   },
+  headerText: {
+    fontFamily: "Permanent Marker, cursive",
+    fontSize: "3rem",
+    color: "#202020",
+  },
 });
+
+export default Header;

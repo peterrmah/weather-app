@@ -1,37 +1,28 @@
-import "./App.css";
-
 import React, { FunctionComponent } from "react";
 import { createUseStyles } from "react-jss";
 
-import backgroundImage from "../../assets/background.png";
-import Main from "../main/Main";
-import Header from "../header/Header";
+import Main from "../sections/main/Main";
+import Header from "../sections/header/Header";
 
-interface AppProps {}
-
-const App: FunctionComponent<AppProps> = ({}) => {
+const App: FunctionComponent = () => {
   const classes = useStyles();
 
   return (
     <div className={classes.app}>
       <div className={classes.contentContainer}>
-        <Header />
+        <Header headerText="Peter's Weather App" />
         <Main />
       </div>
     </div>
   );
 };
 
-export default App;
-
 const useStyles = createUseStyles({
   app: {
     width: "100vw",
     height: "100vh",
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    backgroundSize: "cover",
+    background:
+      "linear-gradient(55.03deg, rgba(255, 122, 0, 0.2) 60.16%, rgba(255, 126, 7, 0) 79.23%), radial-gradient(50.29% 158.93% at 77.66% 11.85%, rgba(173, 145, 0, 0.2) 21.76%, rgba(191, 161, 3, 0) 100%), radial-gradient(70.65% 223.29% at -4.77% 128.43%, rgba(150, 3, 144, 0.83) 1.17%, rgba(150, 3, 144, 0) 100%)",
   },
   contentContainer: {
     width: "65%",
@@ -41,3 +32,5 @@ const useStyles = createUseStyles({
     flexDirection: "column",
   },
 });
+
+export default App;

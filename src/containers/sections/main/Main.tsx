@@ -1,20 +1,16 @@
 import React, { FunctionComponent } from "react";
 import { createUseStyles } from "react-jss";
-import WeatherCard from "../../components/WeatherCard";
+import WeatherContainer from "../../weatherContainer/WeatherContainer";
 
-interface MainProps {}
-
-const Main: FunctionComponent<MainProps> = ({}) => {
+const Main: FunctionComponent = () => {
   const classes = useStyles();
 
   return (
     <main className={classes.mainContainer}>
-      <WeatherCard />
+      <WeatherContainer />
     </main>
   );
 };
-
-export default Main;
 
 const useStyles = createUseStyles({
   mainContainer: {
@@ -23,3 +19,5 @@ const useStyles = createUseStyles({
     justifyContent: "center",
   },
 });
+
+export default Main;
