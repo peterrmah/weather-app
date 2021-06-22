@@ -5,7 +5,7 @@ import { createUseStyles } from "react-jss";
 import { AppState } from "../../store/types";
 import { LocationState, LOCATION_ACTION_TYPES } from "../../store/reducers/location/actionTypes";
 import { WeatherState, WEATHER_ACTION_TYPES } from "../../store/reducers/weather/actionTypes";
-import { useGetCityByNameLazyQuery } from "../../graphql/generated/graphql";
+import { useGetCityByNameQuery } from "../../graphql/generated/graphql";
 import { CommonUtilsServices, LocationServices } from "../../services";
 import Button from "../../components/Button";
 import DropPin from "../../assets/droppin.png";
@@ -29,16 +29,12 @@ const WeatherContainer: FunctionComponent<WeatherContainerProps> = ({
   const classes = useStyles();
   const [isLocateMeToggled, setIsLocateMeToggled] = useState(true);
 
-  const [getCityByNameQueryLazy, { data }] = useGetCityByNameLazyQuery({
+  const { data, refetch } = useGetCityByNameQuery({
     variables: {
       name: city,
     },
     pollInterval: REFRESH_INTERVAL,
   });
-
-  useEffect(() => {
-    getCityByNameQueryLazy();
-  }, [getCityByNameQueryLazy]);
 
   useEffect(() => {
     const standardTemperature = data?.getCityByName?.weather?.temperature?.actual;
@@ -64,7 +60,7 @@ const WeatherContainer: FunctionComponent<WeatherContainerProps> = ({
   };
 
   const refreshButtonHandler = () => {
-    getCityByNameQueryLazy();
+    refetch();
   };
 
   const locateMeButtonHandler = () => {
