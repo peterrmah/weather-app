@@ -159,24 +159,11 @@ export type GetCityByNameQueryVariables = Exact<{
 
 export type GetCityByNameQuery = { __typename?: "Query" } & {
   getCityByName?: Maybe<
-    { __typename?: "City" } & Pick<City, "id" | "name" | "country"> & {
-        coord?: Maybe<{ __typename?: "Coordinates" } & Pick<Coordinates, "lon" | "lat">>;
+    { __typename?: "City" } & Pick<City, "name"> & {
         weather?: Maybe<
-          { __typename?: "Weather" } & Pick<Weather, "timestamp"> & {
-              summary?: Maybe<
-                { __typename?: "Summary" } & Pick<Summary, "title" | "description" | "icon">
-              >;
-              temperature?: Maybe<
-                { __typename?: "Temperature" } & Pick<
-                  Temperature,
-                  "actual" | "feelsLike" | "min" | "max"
-                >
-              >;
-              wind?: Maybe<{ __typename?: "Wind" } & Pick<Wind, "speed" | "deg">>;
-              clouds?: Maybe<
-                { __typename?: "Clouds" } & Pick<Clouds, "all" | "visibility" | "humidity">
-              >;
-            }
+          { __typename?: "Weather" } & {
+            temperature?: Maybe<{ __typename?: "Temperature" } & Pick<Temperature, "actual">>;
+          }
         >;
       }
   >;
@@ -185,35 +172,11 @@ export type GetCityByNameQuery = { __typename?: "Query" } & {
 export const GetCityByNameDocument = gql`
   query getCityByName($name: String!) {
     getCityByName(name: $name) {
-      id
       name
-      country
-      coord {
-        lon
-        lat
-      }
       weather {
-        summary {
-          title
-          description
-          icon
-        }
         temperature {
           actual
-          feelsLike
-          min
-          max
         }
-        wind {
-          speed
-          deg
-        }
-        clouds {
-          all
-          visibility
-          humidity
-        }
-        timestamp
       }
     }
   }
